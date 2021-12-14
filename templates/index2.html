@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>un-sensord</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>  <script src="{{ url_for('static', filename='blockly_compressed.js') }}"></script>
+  <script src="{{ url_for('static', filename='blocks_compressed.js') }}"></script>
+  <script src="{{ url_for('static', filename='en.js') }}"></script>
+  <script src="{{ url_for('static', filename='javascript_compressed.js') }}"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  
+
+<!-- Block Definitions-->
+
+  <script>
+    Blockly.Blocks['thermometer'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("thermometer")
+        .appendField(new Blockly.FieldDropdown([["Celcius","Celcius"], ["Farenheit","Farenheit"], ["Kelvin","Kelvin"]]), "switch");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(330);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+    Blockly.Blocks['magnetSensor'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("magnetSensor")
+        .appendField(new Blockly.FieldDropdown([["2s","2s"], ["4s","4s"]]), "switch");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(130);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+
+Blockly.Blocks['LED'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("LED")
+        .appendField(new Blockly.FieldDropdown([["Blink Fast","Blink Fast"], ["Blink Slow","Blink Slow"], ["SOS Morse Code","SOS Morse Codes"]]), "switch");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(60);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['plotter'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("plotter")
+        .appendField(new Blockly.FieldDropdown([["Temp","Temp"], ["Mag","Mag"]]), "switch");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(240);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['stats'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("stats")
+        .appendField(new Blockly.FieldDropdown([["30s","30s"], ["1m","1m"], ["5m","5m"], ["10m","10m"]]), "switch");
+    this.setInputsInline(false);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(290);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+
+Blockly.Blocks['pinread'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Pin")
+        .appendField(new Blockly.FieldDropdown([["A0","A0"], ["A1","A1"], ["A2","A2"], ["A3","A3"], ["A4","A4"], ["A5","A5"]]), "pin")
+        .appendField(new Blockly.FieldDropdown([["10 DataPoints","10 DataPoints"], ["50 Data Points","50 Data Points"]]), "datapoints")
+        .appendField(new Blockly.FieldDropdown([["/second","/second"], ["/minute","/minute"]]), "rate")
+        .appendField("Save CSV")
+        .appendField(new Blockly.FieldCheckbox("TRUE"), "Save CSV");
+    this.setColour(489);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+// Generator Stubs
+
+
+  Blockly.JavaScript['thermometer'] = function(block) {
+      var dropdown_switch = block.getFieldValue('switch');
+      // TODO: Assemble JavaScript into code variable.
+      if (dropdown_switch==="Celcius"){
+        var code="document.getElementById('form_id').action ='/result';"
+      }
+      if (dropdown_switch==="Farenheit"){
+        var code="document.getElementById('form_id').action ='/resultF';"
+      }
+      if (dropdown_switch==="Kelvin"){
+        var code="document.getElementById('form_id').action ='/resultK';"
+      }
+  return code;
+};
+
+Blockly.JavaScript['magnetSensor'] = function(block) {
+      var dropdown_switch = block.getFieldValue('switch');
+      // TODO: Assemble JavaScript into code variable.
+      if (dropdown_switch==="2s"){
+        var code="document.getElementById('form_id').action ='/magnet2s';"
+      }
+      if (dropdown_switch==="4s"){
+        var code="document.getElementById('form_id').action ='/magnet4s';"
+      }
+  return code;
+};
+
+Blockly.JavaScript['plotter'] = function(block) {
+      var dropdown_switch = block.getFieldValue('switch');
+      // TODO: Assemble JavaScript into code variable.
+      if (dropdown_switch==="Temp"){
+        var code="document.getElementById('form_id').action ='/Tplot';"
+      }
+      if (dropdown_switch==="Mag"){
+        var code="document.getElementById('form_id').action ='/Mplot';"
+      }
+  return code;
+};
+
+Blockly.JavaScript['stats'] = function(block) {
+      var dropdown_switch = block.getFieldValue('switch');
+      // TODO: Assemble JavaScript into code variable.
+      if (dropdown_switch==="30s"){
+        var code="document.getElementById('form_id').action ='/stats1';"
+      }
+      if (dropdown_switch==="1m"){
+        var code="document.getElementById('form_id').action ='/stats2';"
+      }
+      if (dropdown_switch==="5m"){
+        var code="document.getElementById('form_id').action ='/stats3';"
+      }
+      if (dropdown_switch==="10m"){
+        var code="document.getElementById('form_id').action ='/stats4';"
+      }
+  return code;
+};
+
+Blockly.JavaScript['LED'] = function(block) {
+      var dropdown_switch = block.getFieldValue('switch');
+      // TODO: Assemble JavaScript into code variable.
+      if (dropdown_switch==="Blink Fast"){
+        var code="document.getElementById('form_id').action ='/LED';"
+      }
+      if (dropdown_switch==="Blink Slow"){
+        var code="document.getElementById('form_id').action ='/LED2';"
+      }
+      if (dropdown_switch==="SOS Morse Code"){
+        var code="document.getElementById('form_id').action ='/LED3';"
+      }
+  return code;
+};
+
+
+Blockly.JavaScript['pinread'] = function(block) {
+  var dropdown_pin = block.getFieldValue('pin');
+  var dropdown_datapoints = block.getFieldValue('datapoints');
+  var dropdown_rate = block.getFieldValue('rate');
+  var checkbox_save_csv = block.getFieldValue('Save CSV') == 'TRUE';
+  // TODO: Assemble JavaScript into code variable.
+      if (dropdown_pin==="A0"){
+        var code="document.getElementById('form_id').action ='/pinread';"
+      }
+      if  (dropdown_pin==="A1"){
+        var code="document.getElementById('form_id').action ='/pinread';"
+      }
+  return code;
+};
+
+
+</script>
+
+<style>
+#circle {
+    left:200px;
+    top:200px;
+    height:35px;
+    width:35px;
+    border-radius:50%;
+    border: solid 1px black;
+    background-color: #{{ color }};
+    
+}
+</style>
+</head>
+<body>
+
+  
+<div class="jumbotron text-center">
+  <h1>UN-Sensored</h1>
+  <p>Control Arduino with Blockly!</p>
+  <p>By Kyle Pretorius 2021</p>
+</div>
+
+
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+    <h5>Get Arduino Status</h5>
+    <div class="row" style="height: 50px; width: 100px;">
+        <center><form class="grid" action="/status" method="POST">
+            <input type="Submit" class="file_submit">
+        </form></center>
+    </div>
+    </div>
+    <div class="col-md-2">
+
+      <h6>Arduino Status: <h6><div id="circle"></div>
+      <h6>Firmata version: {{version}}</h6>
+  </div>
+
+  <div class="col-md-2">
+    <h4>Analog</h6>
+    <h6>Pin 0: {{pin_a0_r}}</h6>
+    <h6>Pin 1: {{pin_a1_r}}</h6> 
+    <h6>Pin 2: {{pin_a2_r}}</h6> 
+    <h6>Pin 3: {{pin_a3_r}}</h6> 
+    <h6>Pin 4: {{pin_a4_r}}</h6>
+    <h6>Pin 5: {{pin_a5_r}}</h6>  
+  </div>
+
+  <div class="col-md-2">
+    <h4>Digital</h6>
+    <h6>Pin 0: {{pin_a0_r}}</h6>
+    <h6>Pin 1: {{pin_a1_r}}</h6> 
+    <h6>Pin 2: {{pin_a2_r}}</h6> 
+    <h6>Pin 3: {{pin_a3_r}}</h6> 
+    <h6>Pin 4: {{pin_a4_r}}</h6>
+    <h6>Pin 5: {{pin_a5_r}}</h6>  
+  </div>
+
+    
+      <div class="col-md-2">
+        <h5>User Manuel</h5>
+        <div class="row" style="height: 50px; width: 100px;">
+          <form class="grid" action="/status" method="POST">
+              <center><input type="Submit" class="file_submit"></center>
+          </form>
+      </div>
+        </div>
+      <div class="col-md-1"></div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-sm-8" id="blocklyDiv" style="height: 300px; width: 200px;"></div>
+    <div class="col-md-2">      
+      <button onclick="showCode()">Show JavaScript</button>
+      <button onclick="runCode()">Run JavaScript</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+    
+    <form id="form_id" class="grid" action="/404" method="POST">
+      <center><input type = "Submit" class = "file_submit"></center>
+      <center>
+      
+        {% if name %}
+        <h2>Temperature reading: {{name}} {{Temp_unit}}</h2>
+        {% endif %}
+        
+        {% if mag %}
+        <h2>{{mag}}</h2>
+        {% endif %}        
+        
+        {% if image %}
+        <h2>{{image}}</h2>
+        <img src='/static/my_plot{{count}}.png' width="650"/>
+        {% endif %}
+        
+        {% if imageM %}
+        <h2>{{imageM}}</h2>
+        <img src='/static/my_plotM{{count}}.png' width="650"/>
+        {% endif %}
+        
+      </center>
+      </form>
+      </div>
+      <div class="col-md-2"></div>
+  </div>
+
+  <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
+    <block type="thermometer" id="^)e48zM,td+(iJVh4g~D" x="-462" y="-837">
+      <field name="switch">off</field>
+    </block>
+    <block type="magnetSensor" id="^)e48zM,td+(iJVh4g~D2" x="-462" y="-857">
+      <field name="switch">off</field>
+    </block>
+    <block type="LED" id="^)e48zM,td+(iJVh4g~D4" x="-462" y="-877">
+      <field name="switch">off</field>
+    </block>
+    <block type="plotter" id="^)e48zM,td+(iJVh4g~D3" x="-462" y="-897">
+      <field name="switch">off</field>
+    </block>
+    <block type="stats" id="^)e48zM,td+(iJVh4g~D5" x="-462" y="-917">
+      <field name="switch">off</field>
+    </block>
+    <block type="pinread" id="Phd4Tw1}5-9}W0cCQ{OH" x="-462" y="-927">
+      <field name="pin">A0</field>
+      <field name="datapoints">10 DataPoints</field>
+      <field name="rate">/second</field>
+      <field name="Save CSV">TRUE</field>
+    </block>
+  </xml>
+    
+  <script>
+    var demoWorkspace = Blockly.inject('blocklyDiv',
+        {media: '../../media/',
+         toolbox: document.getElementById('toolbox')});
+    Blockly.Xml.domToWorkspace(document.getElementById('toolbox'));
+
+    function showCode() {
+      // Generate JavaScript code and display it.
+      Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+      var code = Blockly.JavaScript.workspaceToCode(demoWorkspace);
+      alert(code);
+    }
+
+    function runCode() {
+      // Generate JavaScript code and run it.
+      window.LoopTrap = 1000;
+      Blockly.JavaScript.INFINITE_LOOP_TRAP =
+          'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+      var code = Blockly.JavaScript.workspaceToCode(demoWorkspace);
+      Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+      try {
+        eval(code);
+      } catch (e) {
+        alert(e);
+      }
+    }
+  </script>
+</body>
+</html>
